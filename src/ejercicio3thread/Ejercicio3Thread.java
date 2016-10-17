@@ -13,6 +13,8 @@ import java.util.logging.Logger;
  * @author Nabor
  */
 public class Ejercicio3Thread extends Thread{
+       
+        
 public Ejercicio3Thread(String str) {
         super(str);
 }
@@ -21,38 +23,47 @@ public Ejercicio3Thread(String str) {
        
     //Mediante la condición While ceñimos el recorrido del programa en 5 vueltas. 
     int aux_conta = 0;
-    System.out.println(getName() + " Comenzando.");
-        while (aux_conta<5){
+    System.out.println(getName() +" Comenzando ");
+        while (aux_conta<=5){
         //El blucle For imprimirá por pantalla el mensaje en proceso mas el nombre del hilo en ejecución.
-            for(int i = 1;i<10;i++){
-                System.out.println(getName() + " en proceso");
-                try {
-                    //El tiempo de espera es marcado por sleep entre 100 y 600 milisegundos 
-                    Thread.sleep((long) Math.random()*(100-600));
-                    aux_conta++;
-                } catch (InterruptedException ex) {
+            System.out.println(aux_conta+ " Comenzando");
+            try {
+             if(aux_conta==5){
+                
+                    Thread.sleep(500);
+                } 
+              
+              if(aux_conta==4){
+                        Thread.sleep(1000);
+              }
+                        
+              if(aux_conta==3){
+                        Thread.sleep(1500);
+              }
+              if(aux_conta==2){
+                        Thread.sleep(2000);
+              }
+              if(aux_conta==1){
+                        Thread.sleep(2500);
+              }
+              if(aux_conta==0){
+                        Thread.sleep(3000);
+              }}
+            catch (InterruptedException ex) {
                     Logger.getLogger(Ejercicio3Thread.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-        }
-    }
+            for(int i = 1;i<=10;i++){
+                System.out.println(aux_conta + " en proceso");
+              
+                    
+              }
+            
+             aux_conta++;
+        }}
+    
     
     public static void main(String[] args) throws InterruptedException {
         Ejercicio3Thread hiloprin = new Ejercicio3Thread("Padre");
-        Ejercicio3Thread hijo1 = new Ejercicio3Thread("Hijo1");
-        Ejercicio3Thread hijo2 = new Ejercicio3Thread("Hijo2");
-        Ejercicio3Thread hijo3 = new Ejercicio3Thread("Hijo3");
-        Ejercicio3Thread hijo4 = new Ejercicio3Thread("Hijo4");
         hiloprin.start();
-        hiloprin.join();
-        hijo1.start();
-        hijo1.join();
-        hijo2.start();
-        hijo2.join();
-        hijo3.start();
-        hijo3.join();
-        hijo4.start();
-        hijo4.join();
-    }
-
-}
+        
+    }}
