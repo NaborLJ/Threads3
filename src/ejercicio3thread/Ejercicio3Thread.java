@@ -12,58 +12,55 @@ import java.util.logging.Logger;
  *
  * @author Nabor
  */
-public class Ejercicio3Thread extends Thread{
-       
-        
-public Ejercicio3Thread(String str) {
-        super(str);
-}
+public class Ejercicio3Thread extends Thread {
 
-    public void run() {
-       
-    //Mediante la condición While ceñimos el recorrido del programa en 5 vueltas. 
-    int aux_conta = 0;
-    System.out.println(getName() +" Comenzando ");
-        while (aux_conta<=5){
-        //El blucle For imprimirá por pantalla el mensaje en proceso mas el nombre del hilo en ejecución.
-            System.out.println(aux_conta+ " Comenzando");
-            try {
-             if(aux_conta==5){
-                
-                    Thread.sleep(500);
-                } 
-              
-              if(aux_conta==4){
-                        Thread.sleep(1000);
-              }
-                        
-              if(aux_conta==3){
-                        Thread.sleep(1500);
-              }
-              if(aux_conta==2){
-                        Thread.sleep(2000);
-              }
-              if(aux_conta==1){
-                        Thread.sleep(2500);
-              }
-              if(aux_conta==0){
-                        Thread.sleep(3000);
-              }}
-            catch (InterruptedException ex) {
-                    Logger.getLogger(Ejercicio3Thread.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            for(int i = 1;i<=10;i++){
-                System.out.println(aux_conta + " en proceso");
-              
-                    
-              }
-            
-             aux_conta++;
-        }}
-    
-    
+    public static int CONTADOR = 4;
+    public static int aux_contador = 0;
+
     public static void main(String[] args) throws InterruptedException {
-        Ejercicio3Thread hiloprin = new Ejercicio3Thread("Padre");
-        hiloprin.start();
-        
-    }}
+        new Ejercicio3Thread("Thread").start();
+
+    }
+
+    public Ejercicio3Thread(String str) {
+        super(str);
+    }
+    public void run() {
+
+        //Mediante esta condición While iremos durmiendo a los hilos dependiendo de su posición en el contador. 
+        //Durmiendo las posiciones de 0 a 3 haremos que el primer hilo que comience sea el 4 y vaya en orden descendente a medida que se van "despertando" los demas.
+        while (CONTADOR >0) {
+            
+            System.out.println(CONTADOR + " Comenzando");
+            try{
+                
+                if (aux_contador==0) {
+                    Ejercicio3Thread.sleep(4000);
+                }
+                if (aux_contador==1) {
+                    Ejercicio3Thread.sleep(3500);
+                }
+                if (aux_contador==2) {
+                    Ejercicio3Thread.sleep(3000);
+                }
+                if (aux_contador==3) {
+                    Ejercicio3Thread.sleep(2500);
+                }
+                //Una vez de se inicie el hilo correspondiente a la posicion del contador se mostrará 10 veces el mensaje de "en proceso"
+                 for (int i = 1; i <= 10; i++) {
+            System.out.println(CONTADOR+ " en proceso");
+            
+            }
+                 System.out.println("Ha terminado ");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Ejercicio3Thread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Al finalizar los 10 procesos se aumentará una vuelta al contador que guarda las posiciones de los hilos. Para poder así irse despertando.
+            CONTADOR--;
+            aux_contador++;
+            
+            
+        }
+    }
+
+}
